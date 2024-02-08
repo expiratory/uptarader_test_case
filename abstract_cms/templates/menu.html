@@ -3,10 +3,10 @@
 <ul>
   {% for item in menu_items %}
     <li>
-      <a href="{{ item.url }}">{{ item.name }}</a>
-      {% if item|has_children %}
-        {% draw_menu menu_name=None children=item.children.all %}
-      {% endif %}
+      <a href="{% if item.url|startswith:'/' %}{{ item.url }}{% else %}{% url item.url %}{% endif %}">{{ item.name }}</a>
+        {% if item.children %}
+          {% include 'menu.html' with menu_items=item.children %}
+        {% endif %}
     </li>
   {% endfor %}
 </ul>
