@@ -9,7 +9,7 @@ register = template.Library()
 def draw_menu(context, menu_name):
     current_url = context['current_url']
 
-    menu_items = MenuItem.objects.filter(menu_name=menu_name).values()
+    menu_items = MenuItem.objects.filter(menu__title=menu_name).values()
     root_items = [item for item in menu_items.filter(parent=None)]
     current_item = menu_items.filter(url__in=current_url).first()
 
